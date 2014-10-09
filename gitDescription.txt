@@ -1,0 +1,148 @@
+git config --global user.name "bishan"               ->to set the author's name
+
+git config --global user.email "toton333@yahoo.com"  -> to set the author's email
+
+git init <project folder name>                       ->to make that folder a git repository
+
+--------------------------------------------------------------------
+
+To change starting path of the git bash, right click on git bash , choose property , change the "start in" to your preferred location
+--------------------------------------------------------------------
+
+adding starts to hold the file to be commited, but doesn't take snapshot
+after adding we need to do commit with a message of modification to make a snapshot of it
+
+---------------------------------------------------------------------
+
+
+git add .                     ->for tracking all files
+
+git add <filename>            -> for adding specific file
+
+git commit -m "message"       -> for putting tracked file into snapshot so that it can be later retrieved
+                            exactly how it was at the time of commit.
+
+
+git commit -a -m "message"    -> for direct commit without adding it
+
+git status                    -> to check the status
+
+git log                       -> for log history
+
+git log --oneline             -> for log history in one line
+
+git status -s                 -> for small description of status
+
+git diff                      -> for seeing changes in working directory , it won't show changes of staging
+
+git diff --cached             -> for seeing changes in staging area
+
+------------------------------------------------------------------------
+
+ssh-keygen -t rsa -C "toton333@yahoo.com"  ->to create ssh key. -C is an uppercase C
+
+Open newly created .ssh folder which has one private and one public key , open the public key in
+notepad , copy it , go to gitgub , under account setting choose ssh key and add it there with a title
+
+ssh -T git@github.com ->to verify and attach 
+
+type "yes"
+
+-----------------------------------------------------------------------
+
+git remote add origin nameOfTheSSHpathtogithub(git@github.com:toton333/fishing.git  -> for adding a remote repository
+
+git push -u origin master            -> for putting files into github(which is the main truck)
+
+git pull origin master               -> for syncing the latest master , always do a pull before a push
+
+git clone nameOfTheSSHPath           -> to copy the repository from server to local machine
+
+------------------------------------------------------------------------
+
+git branch                           -> for having the list of branches with current working branch is hilighted
+
+git branch branchname                -> for creating the new branch
+
+git checkout branchname              -> for switching to the specified branch
+
+git branch -d branchname             -> to delete branch locally
+
+git branch -r                        -> to get list of remote tracking branches, which are different from remote branch in github, tracking branch is just the alias of the connection url/ssh
+
+git branch -r -d branchname          -> to delete remote tracking branch
+
+git push origin --delete branchname  -> to delete remote branch , which is in github
+
+git remote update --prune origin     -> to delete any obsolet remote tracking branche after deletation the remote branch
+
+
+------------------------------------------------------------------------
+
+To handle merge conflict while using windows GUI , in git shell first have to do git add . and then git rebase --continue
+
+git merge and git rebase are the same except git rebase erase the history of the  latest commit of the two commits, unlike merge which keeps history of the both conflicting commits
+
+------------------------------------------------------------------------
+
+git rm --cached filename             ->To remove a file from the staging area
+
+git reset commitname                 ->for erasing history between HEAD and the commitname but it doesn't change/erase anything from the content (reset should be used before sharing)
+
+git reset --hard commitname          ->for erasing history between HEAD and the commitname and also change/erase content
+
+git checkout commitname              ->for viewing the content at the time of commitname using a temporary branch , it doesn't change anything otherwise
+
+git reset --hard HEAD                -> for getting back to the latest content
+
+git revert commitname                -> is used when sharing is already done , it doesn't change/erase previous history unlike reset , but it adds new commit with content of commitname
+
+
+-------------------------------------------------------------------------
+
+git tag -a tagnotation -m "message"  -> for creating a tag , which is like a bookmark of important commit like a release
+
+git tag                              -> for showing the list of existing tags
+
+git show tagnotation                 -> for showing the specific content change while making the tag
+
+git push origin tagnotation          -> for pushing the tag to the remote repository , by default tags don't get pushed to remote repository
+
+-------------------------------------------------------------------------
+
+git config --global core.autocrlf false -> to erase replaced LF with CRLF warning
+
+-------------------------------------------------------------------------
+
+Example of remote repository:   testwordpress, gitbashPLC, windowGitPLC etc.
+
+Example of remote url/ssh : https://github.com/toton333/testwordpress , git@github.com:toton333/testwordpress.git etc.
+
+Example of alias of remote url/ssh : origin, origin1, origin9, babula etc.
+
+Example of remote and local branches : master, test1, test2, test3 etc.
+
+Example of remote tracking branches : origin/master, origin/test1, origin1/test1, origin9/test3, babula/master etc. These are just the pair between url/ssh and branches
+
+--------------------------------------------------------------------------
+
+Difference between git push -u origin master vs git push origin master
+
+
+git push origin master
+if you do only that, you:
+
+will create an upstream master branch on the upstream (now non-empty repo): good.
+won't record that the local branch 'master' needs to be push to upstream (origin) 'master' (upstream branch): bad.
+That is why it is recommended, for the first push, to do a:
+
+git push -u origin master
+That will record origin/master as a remote tracking branch, and will enable the next push to automatically push master to origin/master.
+
+git checkout master
+git push
+And that will work too with push policies 'current' or 'upstream'.
+In each cases, after the initial git push -u origin master, a simple git push will be enough to continue pushing master to the right upstream branch.
+
+
+
