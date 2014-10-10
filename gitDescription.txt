@@ -20,7 +20,7 @@ git add .                     ->for tracking all files
 git add <filename>            -> for adding specific file
 
 git commit -m "message"       -> for putting tracked file into snapshot so that it can be later retrieved
-                            exactly how it was at the time of commit.
+                                 exactly how it was at the time of commit.
 
 
 git commit -a -m "message"    -> for direct commit without adding it
@@ -66,9 +66,12 @@ git branch branchname                -> for creating the new branch
 
 git checkout branchname              -> for switching to the specified branch
 
+git branch -avv                      -> to get the list of all local branches and remote tracking branches
+
 git branch -d branchname             -> to delete branch locally
 
-git branch -r                        -> to get list of remote tracking branches, which are different from remote branch in github, tracking branch is just the alias of the connection url/ssh
+git branch -r                        -> to get list of remote tracking branches, which are different from remote 
+                                        branch in  github, tracking branch is just the alias of the connection url/ssh  
 
 git branch -r -d branchname          -> to delete remote tracking branch
 
@@ -87,16 +90,26 @@ git merge and git rebase are the same except git rebase erase the history of the
 
 git rm --cached filename             ->To remove a file from the staging area
 
-git reset commitname                 ->for erasing history between HEAD and the commitname but it doesn't change/erase anything from the content (reset should be used before sharing)
+git reset commitname                 ->for erasing history between HEAD and the commitname but it doesn't change/erase 
+                                        anything from the content (reset should be used before sharing)
 
 git reset --hard commitname          ->for erasing history between HEAD and the commitname and also change/erase content
 
-git checkout commitname              ->for viewing the content at the time of commitname using a temporary branch , it doesn't change anything otherwise
+git reset --hard commitname and then git push -f origin branchname -> to erase commits in remote repository also, i.e in 
+                                                                       github
+
+git checkout commitname              ->for viewing the content at the time of commitname using a temporary branch , it 
+                                       doesn't change anything otherwise
 
 git reset --hard HEAD                -> for getting back to the latest content
 
-git revert commitname                -> is used when sharing is already done , it doesn't change/erase previous history unlike reset , but it adds new commit with content of commitname
+git revert commitname                -> is used when sharing is already done , it doesn't change/erase previous history 
+                                         unlike reset , but it adds new commit with content of commitname
 
+git rebase -i commitname             -> to combine(pick or squash, squashed commits combined together with picked commit) 
+                                         commits which are commited after the rebased commitname
+
+git reflog and then git reset --hard HEAD@{4} -> to undo a reset
 
 -------------------------------------------------------------------------
 
@@ -143,6 +156,16 @@ git checkout master
 git push
 And that will work too with push policies 'current' or 'upstream'.
 In each cases, after the initial git push -u origin master, a simple git push will be enough to continue pushing master to the right upstream branch.
+
+--------------------------------------------------------------------------
+Vi editor
+if it is block blinking -> indicates we are in normal mode
+i                       -> to enter into insert mode
+press esc               -> to exit from insert mode
+:                       -> to enter into command mode
+:w                      -> to write/create a new file and save
+:wq                     ->write , save and exit
+:q!                     -> to exit from vim
 
 
 
