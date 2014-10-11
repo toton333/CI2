@@ -111,6 +111,8 @@ git rebase -i commitname             -> to combine(pick or squash, squashed comm
 
 git reflog and then git reset --hard HEAD@{4} -> to undo a reset
 
+git add --all                        -> to commit a file delete
+
 -------------------------------------------------------------------------
 
 git tag -a tagnotation -m "message"  -> for creating a tag , which is like a bookmark of important commit like a release
