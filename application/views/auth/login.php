@@ -7,11 +7,13 @@
   <p>
     <?php echo lang('login_identity_label', 'identity');?>
     <?php echo form_input($identity);?>
+    <?php echo form_error('identity', '<span class="error">', '</span>'); ?>
   </p>
 
   <p>
     <?php echo lang('login_password_label', 'password');?>
     <?php echo form_input($password);?>
+    <?php echo form_error('password', '<span class="error">', '</span>'); ?>
   </p>
 
   <p>

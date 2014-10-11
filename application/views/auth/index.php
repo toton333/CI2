@@ -36,6 +36,7 @@
 		                <?php endforeach?>
 					</td>
 					<td><?php echo ($user->active) ? lang('index_active_link') : lang('index_inactive_link');?></td>
+					<td><?php echo "Restricted" ?></td>
 				<?php endif; ?>
 			</tr>
 		
