@@ -105,7 +105,7 @@ class Main extends CI_Controller {
              }
              else 
              {
-                $data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+                $data['message'] = $this->session->flashdata('message');
              	$data['title'] = ucfirst($data['info']->title);
 			    $data['comments'] = $this->main_model->getComments($slug);
                 $data['slug'] = $slug;
@@ -119,6 +119,73 @@ class Main extends CI_Controller {
 
 			
 	
+	}
+
+	public function create_news()
+	{
+
+		$this->form_validation->set_rules('news_title', 'News Title', 'required|XSS_clean|is_unique[news.title]');
+		$this->form_validation->set_rules('news_body', 'News Body', 'required|XSS_clean');
+
+           if ($this->form_validation->run())
+           {
+
+           	$param = array(
+                      'id' => '',
+                      'user_id' => $this->ion_auth->get_user_id(),
+                      'title'   => $this->input->post('news_title'),
+                      'slug'    =>  url_title($this->input->post('news_title'), 'dash', TRUE),
+                      'text'    => $this->input->post('news_body'),
+                      'posted_on' => time()
+
+                	);
+             if ($this->main_model->setNews($param))
+             {
+             	$this->session->set_flashdata('message', 'News has been created');
+             	redirect('news/create_news', 'refresh');
+             }
+             else
+             {
+             	$this->session->set_flashdata('message', 'Some error occured. Try again later.');
+             	redirect('news/create_news', 'refresh');
+             }
+             
+           	
+           	;
+           }
+           else
+           {
+           	    $data['message'] = $this->session->flashdata('message');
+		        $data['title']   = "Create News";
+		        $data['news_title'] = array(
+                    'name'  => 'news_title',
+                    'id'    => 'news_title',
+                    'type'  => 'text',
+                    'placeholder' => 'Title',
+                    'required'    => 'required',
+                    'value' => $this->form_validation->set_value('news_title')
+               
+		        	);
+		        $data['news_body'] = array(
+                    'name'        => 'news_body',
+                    'id'          => 'news_body',
+                    'value'       => $this->form_validation->set_value('news_body'),
+                    'cols'        => 40,
+                    'rows'        => 20,
+                    'placeholder' => 'Post the news here...',
+                    'required'    => 'required',
+                    'wrap'        => 'hard'
+               
+		        	);
+		        $this->load->view('templates/header', $data);
+				$this->load->view('pages/admin/createNews', $data);
+				$this->load->view('templates/footer');
+           }
+           
+
+
+
+		       
 	}
 
 

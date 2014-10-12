@@ -16,15 +16,37 @@ class Main_model extends CI_Model {
   {
        if ($slug === FALSE) 
        {
-       	$statement = $this->db->get('news');
+       	$statement = $this->db->query("SELECT  `news`.*, `users`.`username`
+                                       FROM news
+                                       INNER JOIN users
+                                       ON `news`.`user_id` = `users`.`id`
+
+                                     ");
+
+
        	return $statement->result();
        } 
        else 
        {
-       	$statement = $this->db->get_where('news', array('slug' => $slug));
+        //$slug should be between single quotes and not ``
+       	$statement = $this->db->query("SELECT  `news`.*, `users`.`username`
+                                       FROM news
+                                       INNER JOIN users
+                                       ON `news`.`user_id` = `users`.`id`
+                                       WHERE `news`.`slug` = '$slug' 
+
+
+                                     ");
        	return $statement->row();
        }
    
+  }
+
+  public function setNews($param)
+  {
+    $statement = $this->db->insert('news', $param);
+    return $statement;
+       
   }
 
   public function getComments($slug)
@@ -51,6 +73,8 @@ class Main_model extends CI_Model {
   return $statement;
 
  }
+
+
 
 
 

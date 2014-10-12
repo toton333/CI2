@@ -41,15 +41,15 @@
 
 
 
-$route['news'] = "main/newsList";
-$route['news/(:any)'] = "main/singleNews/$1";
+$route['news']               = "main/newsList";
+$route['news/create_news']   = "main/create_news";
+$route['news/(:any)']        = "main/singleNews/$1";
 
 
 $route['default_controller'] = "main";
-$route['page/(:any)'] = "main/page/$1"; //need to put page/ before (:any) without that all auth controller's functions had to be routed
-$route['testing'] = "main/testing";
+$route['page/(:any)']        = "main/page/$1"; //need to put page/ before (:any) without that all auth controller's functions had to be routed
 
-$route['404_override'] = '';
+$route['404_override']       = '';
 
 
 /* End of file routes.php */

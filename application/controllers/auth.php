@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
 			}
             
             $this->load->view('templates/header', $this->data);
-			$this->_render_page('auth/index', $this->data);
+			$this->_render_page('pages/admin/dashboard.php', $this->data);
 			$this->load->view('templates/footer', $this->data);
 		}
 

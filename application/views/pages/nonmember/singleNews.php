@@ -1,5 +1,5 @@
 <h1><?php echo $title; ?></h1>
-
+<h3>Author: <?php echo $info->username; ?></h3><span> | Posted on :<?php echo date('jS M Y, h:i:s A', $info->posted_on) ; ?></span>
 <p><?php echo $info->text; ?></p>
 
 <div id="comments">
@@ -31,6 +31,7 @@
 echo form_open('news/'.$slug);
 
 echo form_textarea('commentText');
+echo form_error('commentText', '<span class="error"></span>');
 
 echo '<p>';
 echo form_submit('commentSubmit', 'Post');
