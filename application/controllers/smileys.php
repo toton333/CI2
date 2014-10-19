@@ -12,7 +12,8 @@ class Smileys extends CI_Controller {
 		$this->load->helper('smiley');
 		$this->load->library('table');
 
-		$image_array = get_clickable_smileys('/', 'comments');
+
+		$image_array = get_clickable_smileys(base_url().'smile/', 'comments');
 
 		$col_array = $this->table->make_columns($image_array, 8);
 
