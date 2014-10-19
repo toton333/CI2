@@ -20,8 +20,8 @@
 	            <td><?php echo htmlspecialchars($user->last_name,ENT_QUOTES,'UTF-8');?></td>
 	            <td><?php echo htmlspecialchars($user->email,ENT_QUOTES,'UTF-8');?></td>
 
-	            <!--custom if else to not allow admins edit eachother's profile -->
-	            <?php if(! $this->ion_auth->is_admin($user->id) || $user->id == $this->ion_auth->get_user_id()): ?>
+	            <!--custom if else to not allow admins edit eachother's profile and to allow owner having full access -->
+	            <?php if(! $this->ion_auth->is_admin($user->id) || $user->id == $this->ion_auth->get_user_id() || $this->ion_auth->in_group('owner', $this->ion_auth->get_user_id()   )  ): ?>
 					<td>
 						<?php foreach ($user->groups as $group):?>
 							<?php echo anchor("auth/edit_group/".$group->id, htmlspecialchars($group->name,ENT_QUOTES,'UTF-8')) ;?><br />

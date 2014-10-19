@@ -156,8 +156,8 @@ class Main extends CI_Controller {
            else
            {
            	    $data['message'] = $this->session->flashdata('message');
-		        $data['title']   = "Create News";
-		        $data['news_title'] = array(
+    		        $data['title']   = "Create News";
+    		        $data['news_title'] = array(
                     'name'  => 'news_title',
                     'id'    => 'news_title',
                     'type'  => 'text',
@@ -178,8 +178,8 @@ class Main extends CI_Controller {
                
 		        	);
 		        $this->load->view('templates/header', $data);
-				$this->load->view('pages/admin/createNews', $data);
-				$this->load->view('templates/footer');
+    				$this->load->view('pages/admin/createNews', $data);
+    				$this->load->view('templates/footer');
            }
            
 
@@ -187,6 +187,37 @@ class Main extends CI_Controller {
 
 		       
 	}
+
+/*
+ hook is something which hooks a method/function of a class to an event
+ below example shows how a hook 'programmer' hooks a method 'func_of_programmer_hook' to an event 'intro'.
+ Events are called using trigger_events() function.
+ Both trigger_events() and set_hook() are in ion_auth_mode.php
+*/
+
+  public function func_of_programmer_hook($name)
+  {
+    
+    echo 'My name is '.$name. ' and i am a programmer.<br/>';
+
+  }
+
+  public function trigger_test()
+  {
+    $event     = 'intro'; //it fires off using trigger_events('intro')
+    $hook      = 'programmer'; // the name of the hook being set using set_hook function
+    $class     = 'main';
+    $function  = 'func_of_programmer_hook'; //name of the function to be used in the programmer hook
+    $args      = array('Bishan'); //arguments of the func_of_programmer_hook() to be passed into
+
+
+
+    $this->ion_auth->set_hook($event, $hook, $class, $function, $args);
+
+    $this->ion_auth->trigger_events('intro');
+    echo 'I am from India';
+
+  }
 
 
 
