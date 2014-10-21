@@ -113,6 +113,8 @@ git reflog and then git reset --hard HEAD@{4} -> to undo a reset
 
 git add --all                        -> to commit a file delete
 
+git reset --hard and then git clean -fd    -> to delete all uncommited files and folder
+
 -------------------------------------------------------------------------
 
 git tag -a tagnotation -m "message"  -> for creating a tag , which is like a bookmark of important commit like a release
