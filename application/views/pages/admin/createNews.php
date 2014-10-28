@@ -12,7 +12,7 @@ echo '</p>';
 echo '<p><span class="required">*</span><br/>';
 echo form_textarea($news_body);
 
-echo form_error('news_body', '<span class="error"></span>');
+echo form_error('comments', '<span class="error"></span>');
 echo '</p>';
 
 echo form_submit('submit', 'Create');
@@ -20,3 +20,6 @@ echo form_close();
 
 ?>
 <span class="required">*</span> Required Fields
+<h3>Add smiley</h3>
+<?php echo $smiley_table; ?>
+<?php echo smiley_js(); ?>

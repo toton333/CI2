@@ -18,6 +18,8 @@ class Main extends CI_Controller {
 
        $this->load->library('user_agent');
        $this->load->helper('file');
+       $this->load->helper('smiley');
+       $this->load->library('table');
 
 	}
 
@@ -79,7 +81,7 @@ class Main extends CI_Controller {
 		}
 
 			
-            $this->form_validation->set_rules('commentText', 'Comment', 'required|XSS_clean');
+            $this->form_validation->set_rules('comments', 'Comment', 'required|XSS_clean');
 
             if ($this->form_validation->run())
              {
@@ -87,7 +89,7 @@ class Main extends CI_Controller {
                 $param = array(
                       'id' => '',
                        'news_id' => $data['info']->id,
-                       'comment' => $this->input->post('commentText'),
+                       'comment' => $this->input->post('comments'),
                        'user_id' =>$this->ion_auth->get_user_id(),
                        'posted_on' => time()
 
@@ -105,14 +107,21 @@ class Main extends CI_Controller {
              }
              else 
              {
-                $data['message'] = $this->session->flashdata('message');
-             	$data['title'] = ucfirst($data['info']->title);
-			    $data['comments'] = $this->main_model->getComments($slug);
-                $data['slug'] = $slug;
+                 $data['message'] = $this->session->flashdata('message');
+                 $data['title'] = ucfirst($data['info']->title);
+    			       $data['comments'] = $this->main_model->getComments($slug);
+                 $data['slug'] = $slug;
 
-            	$this->load->view('templates/header', $data);
-				$this->load->view('pages/nonmember/singleNews', $data);
-				$this->load->view('templates/footer');
+                 //for smiley generation
+                 $image_array = get_clickable_smileys(base_url().'smile/', 'comments');
+                 $col_array = $this->table->make_columns($image_array, 8);
+                 $data['smiley_table'] = $this->table->generate($col_array);
+
+
+
+                 $this->load->view('templates/header', $data);
+    				     $this->load->view('pages/nonmember/singleNews', $data);
+    				     $this->load->view('templates/footer');
             }
             
 
@@ -125,7 +134,7 @@ class Main extends CI_Controller {
 	{
 
 		$this->form_validation->set_rules('news_title', 'News Title', 'required|XSS_clean|is_unique[news.title]');
-		$this->form_validation->set_rules('news_body', 'News Body', 'required|XSS_clean');
+		$this->form_validation->set_rules('comments', 'News Body', 'required|XSS_clean');
 
            if ($this->form_validation->run())
            {
@@ -135,7 +144,7 @@ class Main extends CI_Controller {
                       'user_id' => $this->ion_auth->get_user_id(),
                       'title'   => $this->input->post('news_title'),
                       'slug'    =>  url_title($this->input->post('news_title'), 'dash', TRUE),
-                      'text'    => $this->input->post('news_body'),
+                      'text'    => $this->input->post('comments'),
                       'posted_on' => time()
 
                 	);
@@ -167,8 +176,8 @@ class Main extends CI_Controller {
                
 		        	);
 		        $data['news_body'] = array(
-                    'name'        => 'news_body',
-                    'id'          => 'news_body',
+                    'name'        => 'comments',
+                    'id'          => 'comments',
                     'value'       => $this->form_validation->set_value('news_body'),
                     'cols'        => 40,
                     'rows'        => 20,
@@ -177,6 +186,16 @@ class Main extends CI_Controller {
                     'wrap'        => 'hard'
                
 		        	);
+
+            //for smiley generation
+            $image_array = get_clickable_smileys(base_url().'smile/', 'comments');
+            $col_array = $this->table->make_columns($image_array, 8);
+            $data['smiley_table'] = $this->table->generate($col_array);
+
+
+
+
+
 		        $this->load->view('templates/header', $data);
     				$this->load->view('pages/admin/createNews', $data);
     				$this->load->view('templates/footer');

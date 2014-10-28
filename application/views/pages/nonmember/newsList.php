@@ -4,7 +4,7 @@
 
 	<h2><?php echo ucfirst($row->title); ?></h2>
 	<h3>Author: <?php echo $row->username; ?></h3><span> | Posted on :<?php echo date('jS M Y, h:i:s A', $row->posted_on) ; ?></span>
-	<p><?php echo $row->text; ?></p>
+	<p><?php echo parse_smileys($row->text, base_url(). 'smile/') ; ?></p>
 	<a href="news/<?php echo $row->slug; ?>">Read More</a>
 
 <?php endforeach; ?>

@@ -2,7 +2,7 @@
 <head>
 <title>Smileys</title>
 
-<?php echo smiley_js(); ?>
+
 
 </head>
 <body>
@@ -14,6 +14,7 @@
 <p>Click to insert a smiley!</p>
 
 <?php echo $smiley_table; ?>
+<?php echo smiley_js(); ?>
 
 </body>
 </html>
