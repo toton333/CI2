@@ -81,7 +81,7 @@ class Main extends CI_Controller {
 		}
 
 			
-            $this->form_validation->set_rules('comments', 'Comment', 'required|XSS_clean');
+            $this->form_validation->set_rules('commentText', 'Comment', 'required|XSS_clean');
 
             if ($this->form_validation->run())
              {
@@ -89,7 +89,7 @@ class Main extends CI_Controller {
                 $param = array(
                       'id' => '',
                        'news_id' => $data['info']->id,
-                       'comment' => $this->input->post('comments'),
+                       'comment' => $this->input->post('commentText'),
                        'user_id' =>$this->ion_auth->get_user_id(),
                        'posted_on' => time()
 
@@ -134,7 +134,7 @@ class Main extends CI_Controller {
 	{
 
 		$this->form_validation->set_rules('news_title', 'News Title', 'required|XSS_clean|is_unique[news.title]');
-		$this->form_validation->set_rules('comments', 'News Body', 'required|XSS_clean');
+		$this->form_validation->set_rules('news_body', 'News Body', 'required|XSS_clean');
 
            if ($this->form_validation->run())
            {
@@ -144,7 +144,7 @@ class Main extends CI_Controller {
                       'user_id' => $this->ion_auth->get_user_id(),
                       'title'   => $this->input->post('news_title'),
                       'slug'    =>  url_title($this->input->post('news_title'), 'dash', TRUE),
-                      'text'    => $this->input->post('comments'),
+                      'text'    => $this->input->post('news_body'),
                       'posted_on' => time()
 
                 	);
@@ -176,8 +176,8 @@ class Main extends CI_Controller {
                
 		        	);
 		        $data['news_body'] = array(
-                    'name'        => 'comments',
-                    'id'          => 'comments',
+                    'name'        => 'news_body',
+                    'id'          => 'news_body',
                     'value'       => $this->form_validation->set_value('news_body'),
                     'cols'        => 40,
                     'rows'        => 20,

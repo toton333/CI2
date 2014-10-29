@@ -30,10 +30,10 @@
 
 echo form_open('news/'.$slug);
 
-$parameters = array('name' => 'comments', 'id' => 'comments', 'rows' => 4, 'cols' => 40     );
+$parameters = array('name' => 'commentText', 'id' => 'commentText', 'rows' => 4, 'cols' => 40     );
 
 echo form_textarea($parameters);
-echo form_error('comments', '<span class="error"></span>');
+echo form_error('commentText', '<span class="error"></span>');
 
 echo '<p>';
 echo form_submit('commentSubmit', 'Post');
@@ -53,4 +53,4 @@ echo form_close();
 <?php endif;  ?>
 
 
-<?php echo smiley_js(); ?>
+<?php echo smiley_js('comments', 'commentText'); ?>
